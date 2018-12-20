@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  CentralAccountRoleArn:
+    Type: String
+Resources:
+  ChildAccountRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            AWS: !Ref CentralAccountRoleArn
+          Action: sts:AssumeRole
+      Path: /
+      Policies:
+      - PolicyName: CfnStackAssumeRole
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action: cloudformation:*
+            Resource: "*"
+          - Effect: Allow
+            Action: s3:*
+            Resource: "*"
+Outputs:
+  RemoteAccountRole:
+    Value: !GetAtt ChildAccountRole.Arn

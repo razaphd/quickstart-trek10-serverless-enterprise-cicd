@@ -1,0 +1,10 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  BucketTag:
+    Type: String
+Resources:
+  RemoteBucket:
+    Type: "AWS::S3::Bucket"
+Outputs:
+  BucketArn:
+    Value: !GetAtt RemoteBucket.Arn
