@@ -5,7 +5,7 @@ set -euo pipefail
 
 # Variables:
 # The name you previously used to create your CloudFormation stack 
-STACK_NAME=cicd-serverless
+STACK_NAME=quickstart-trek10-serverless-enterprise-cicd
 # Relative path to local folder (that does not exist) to store git project 
 LOCAL_REPO_FOLDER=../sample-project-codecommit
 

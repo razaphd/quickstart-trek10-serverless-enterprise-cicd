@@ -1,41 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  (qs-placeholderId) 
+  Serverless CICD Quick Start
+  Shared services account resources for a project
+
 Parameters:
   AppName:
-    Description: Application Name, used for the repository and Child stack Name
+    Description: Application name, used for the repository and child stack name
     Type: String
-    Default: sample
+    Default: Sample
   DevAwsAccountId:
-    Description: AWS Account ID for Dev
+    Description: AWS account ID for development account
     Type: String
     AllowedPattern: (\d{12}|^$)
-    ConstraintDescription: must be an AWS account id
+    ConstraintDescription: Must be an AWS account ID
     Default: '159527342995'
   ProdAwsAccountId:
-    Description: AWS Account ID for Production
+    Description: AWS account ID for production account
     Type: String
     AllowedPattern: (\d{12}|^$)
-    ConstraintDescription: must be an AWS account id
+    ConstraintDescription: Must be an AWS account ID
     Default: '159527342995'
   DynamicPipelineMakerLambdaArn:
-    Description: Arn of lambda function to create dynamic pipeline.
+    Description: ARN of Lambda function to create dynamic pipeline
     Type: String
   CodecommitCredentialsLambdaArn:
-    Description: Arn of lambda function to create credentials for access to codecommit.
+    Description: ARN of Lambda function to create credentials for access to CodeCommit
     Type: String
   BuildImageName:
     Description: Docker image for application build
     Type: String
     Default: aws/codebuild/nodejs:10.1.0
   ArtifactBucket:
-    Description: Artifact Bucket
+    Description: Artifact S3 bucket
     Type: String
   ArtifactBucketKeyArn:
-    Description: ARN of the Artifact Bucket KMS Key
+    Description: ARN of the artifact bucket KMS key
     Type: String
   PipelineServiceRoleArn:
-    Description: Pipeline Service Role ARN
+    Description: Pipeline service role ARN
     Type: String
   SamTranslationBucket:
-    Description: S3 bucket for SAM Translations
+    Description: S3 bucket for SAM translations
     Type: String
 
 Conditions:
@@ -185,43 +191,43 @@ Resources:
 
 Outputs:
   SecretsManagerAliasName:
-    Description: KMS Key Alias for the use of secrets across accounts
+    Description: KMS key alias for the use of secrets across accounts
     Value: !Ref SecretsManagerKey
   SecretsManagerKey:
-    Description: KMS Key for the use of secrets across accounts
+    Description: KMS key for the use of secrets across accounts
     Value: !GetAtt SecretsManagerKey.Arn
   RepoCloneUrlHttp:
-    Description: Url for HTTP Cloning 
+    Description: URL for HTTP loning 
     Value: !GetAtt Repository.CloneUrlHttp
   RepoCloneUrlSsh:
-    Description: Url for SSH Cloning
+    Description: URL for SSH cloning
     Value: !GetAtt Repository.CloneUrlSsh
   RepoSshConfigHost:
-    Description: Url for SSH Cloning
+    Description: URL for SSH cloning
     Value: !Sub git-codecommit.${AWS::Region}.amazonaws.com/v1/repos/${Repository.Name}
   RepoName:
-    Description: Name of the Repo
+    Description: Name of the repo
     Value: !GetAtt Repository.Name
   IAMUserName:
     Description: IAM user to be able to use the repository
     Value: !Ref RepositoryUser
   SecretArnDev:
-    Description: Dev Secret ARN
+    Description: Dev secret ARN
     Value:
       !If
         - AddDevAccountPermissions
         - !Ref SecretDev
         - ''
   SecretArnProd:
-    Description: Prod Secret ARN
+    Description: Prod secret ARN
     Value:
       !If
         - AddProdAccountPermissions
         - !Ref SecretProd
         - ''
   GitUserName:
-    Description: Username for access to the codecommit repository
+    Description: Username for access to the CodeCommit repository
     Value: !GetAtt CodecommitCredentials.UserName
   GitPassword:
-    Description: Password for access to the codecommit repository
+    Description: Password for access to the CodeCommit repository
     Value: !GetAtt CodecommitCredentials.Password

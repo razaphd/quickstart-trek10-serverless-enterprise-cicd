@@ -1,15 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  (qs-placeholderId) 
+  Serverless CICD Quick Start
+  Common resources for the shared services account
+
 Parameters:
   DevAwsAccountId:
-    Description: AWS Account ID for Dev
+    Description: AWS account ID for development account
     Type: String
     AllowedPattern: (\d{12}|^$)
-    ConstraintDescription: must be an AWS account id
+    ConstraintDescription: Must be an AWS account ID
     Default: '159527342995'
   ProdAwsAccountId:
-    Description: AWS Account ID for Production
+    Description: AWS account ID for production account
     Type: String
     AllowedPattern: (\d{12}|^$)
-    ConstraintDescription: must be an AWS account id
+    ConstraintDescription: Must be an AWS account ID
     Default: '159527342995'
 
 Conditions:
@@ -257,17 +263,17 @@ Outputs:
     Description: Bucket used when packaging SAM templates
     Value: !Ref SamBucket
   PipelineArtifactBucket:
-    Description: Artifact Bucket for all pipelines
+    Description: Artifact bucket for all pipelines
     Value: !Ref ArtifactBucket
   PipelineServiceRoleArn:
     Description: ARN of the IAM role used by CodePipeline and CodeBuild in this account
     Value: !GetAtt PipelineServiceRole.Arn
   ArtifactBucketKeyArn:
-    Description: KMS Key for codepipelines and artifacts
+    Description: KMS key for codepipelines and artifacts
     Value: !GetAtt ArtifactBucketKey.Arn
   ArtifactBucketKeyId:
-    Description: KMS Key Id for codepipelines and artifacts
+    Description: KMS key ID for codepipelines and artifacts
     Value: !Ref ArtifactBucketKey
   ArtifactBucketAliasName:
-    Description: KMS Key Alias for codepipelines and artifacts
+    Description: KMS key alias for codepipelines and artifacts
     Value: !Ref ArtifactBucketAlias

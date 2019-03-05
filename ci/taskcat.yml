@@ -1,6 +1,6 @@
 global:
   owner: oleg.dubyk@trek10.com
-  qsname: AWS-CICD-Quickstart
+  qsname: quickstart-trek10-serverless-enterprise-cicd
   regions:
     - ap-northeast-1
     - ap-northeast-2
@@ -22,8 +22,8 @@ global:
  
 tests:
   quickstart-trek10-serverless-enterprise-cicdt1:
-    parameter_input: full-stack-trek10-sandbox.json
-    template_file: full-stack.yaml
+    parameter_input: defaults.json
+    template_file: full-stack.template.yaml
     regions:
       - ap-northeast-1
       - ap-northeast-2

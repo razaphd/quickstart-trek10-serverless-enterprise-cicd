@@ -1,26 +1,29 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: CodePipelines shared resources and security
+Description: >
+  (qs-placeholderId) 
+  Serverless CICD Quick Start
+  Codepipeline shared resources and security
 
 Parameters:
   AppName:
-    Description: Application Name, used for the repository and Child stack Name
+    Description: Application name, used for the repository and child stack name
     Type: String
-    Default: sample
+    Default: Sample
   BuildImageName:
-    Description: AWS Account ID for Dev
+    Description: Docker image for application build
     Type: String
     Default: aws/codebuild/nodejs:10.1.0
   DevAwsAccountId:
-    Description: AWS Account ID for Dev
+    Description: AWS account ID for development account
     Type: String
     AllowedPattern: (\d{12}|^$)
-    ConstraintDescription: must be an AWS account id
+    ConstraintDescription: Must be an AWS account ID
     Default: '159527342995'
   ProdAwsAccountId:
-    Description: AWS Account ID for Production
+    Description: AWS account ID for production account
     Type: String
     AllowedPattern: (\d{12}|^$)
-    ConstraintDescription: must be an AWS account id
+    ConstraintDescription: Must be an AWS account ID
     Default: '159527342995'
   Branch:
     Description: Repository branch name
@@ -31,29 +34,29 @@ Parameters:
     Type: String
     Default: master
   ArtifactBucket:
-    Description: Artifact Bucket
+    Description: Artifact S3 bucket
     Type: String
   ArtifactBucketKeyArn:
-    Description: ARN of the Artifact Bucket KMS Key
+    Description: ARN of the artifact bucket KMS key
     Type: String
   PipelineServiceRoleArn:
-    Description: Pipeline Service Role ARN
+    Description: Pipeline service role ARN
     Type: String
   SamTranslationBucket:
-    Description: S3 bucket for SAM Translations
+    Description: S3 bucket for SAM translations
     Type: String
   DynamicPipelineCleanupLambdaArn:
-    Description: Arn of lambda function to cleanup dynamic pipeline.
+    Description: ARN of Lambda function to clean up dynamic pipeline
     Type: String
   SecretArnDev:
-    Description: Dev Secret ARN
+    Description: ARN for Secrets Manager secret for dev
     Type: String
   SecretArnProd:
-    Description: Prod Secret ARN
+    Description: ARN for Secrets Manager secret for production
     Type: String
     Default: ''
   SecretsManagerKey:
-    Description: KMS Key for the use of secrets across accounts
+    Description: KMS key for the use of secrets across accounts
     Type: String
 
 Conditions:
@@ -319,25 +322,25 @@ Resources:
 Outputs:
   PipelineNotificationTopic:
     Condition: IsProdStage
-    Description: Notification SNS Arn for shared pipeline notificiations
+    Description: Notification SNS ARN for shared pipeline notificiations
     Value: !Ref PipelineNotificationsTopic
     Export:
       Name: !Sub ${AWS::StackName}-PipelineNotificationTopic
   PipelineNotificationTopicName:
     Condition: IsProdStage
-    Description: repo activity notifications topic name
+    Description: Repo activity notifications topic name
     Value: !GetAtt PipelineNotificationsTopic.TopicName
     Export:
       Name: !Sub ${AWS::StackName}-PipelineNotificationTopicName
   DevAccountId:
     Condition: IsProdStage
-    Description: AWS Account ID for Dev that was passed in as a parameter
+    Description: AWS account ID for dev that was passed in as a parameter
     Value: !Ref DevAwsAccountId
     Export:
       Name: !Sub ${AppName}-DevAwsAccountId
   ProdAccountId:
     Condition: IsProdStage
-    Description: AWS Account ID for Prod that was passed in as a parameter
+    Description: AWS account ID for prod that was passed in as a parameter
     Value: !Ref ProdAwsAccountId
     Export:
       Name: !Sub ${AppName}-ProdAwsAccountId

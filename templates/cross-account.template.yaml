@@ -1,25 +1,33 @@
 AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  (qs-placeholderId) 
+  Serverless CICD Quick Start
+  Resources for the child accounts
 
 Parameters:
   AwsAccountId:
-    Description: Child AWS Account ID
+    Description: Child AWS account ID
     Type: String
     AllowedPattern: (\d{12}|^$)
-    ConstraintDescription: must be an AWS account id
+    ConstraintDescription: Must be an AWS account ID
   QuickStartStackMakerLambda:
     Description: Lambda function to create stack in child account
     Type: String
   Stage:
-    Description: Child Stage
+    Description: Child stage
     Type: String
+  ChildAccountRoleName:
+    Description: Name of role created by ChildAccountRole template
+    Type: String
+    Default: ChildAccountRole
 
 Resources:
-  CrossAccountStackDev:
+  CrossAccountStack:
     Type: "AWS::CloudFormation::CustomResource"
     Version: '1.0'
     Properties:
       ServiceToken: !Ref QuickStartStackMakerLambda
-      RoleArn: !Sub arn:aws:iam::${AwsAccountId}:role/ChildAccountRole
+      RoleArn: !Sub arn:aws:iam::${AwsAccountId}:role/${ChildAccountRoleName}
       StackName: !Sub ${AWS::StackName}-${Stage}
       Region: !Ref AWS::Region
       CfnParameters:
