@@ -3,15 +3,21 @@ Description: >
   (qs-placeholderId) 
   Serverless CICD Quick Start
   Initial roles for child accounts
-  
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterLabels:
+      CentralAwsAccountId:
+        default: Shared Services account ID
+      ChildAccountRoleName:
+        default: Child account role name
 Parameters:
   CentralAwsAccountId:
-    Description: Central AWS Account ID
+    Description: The AWS account ID of the shared services account, from step 1.3. For guidance, see Finding Your AWS Account ID in the AWS documentation.
     Type: String
     AllowedPattern: (\d{12}|^$)
     ConstraintDescription: must be an AWS account ID
   ChildAccountRoleName:
-    Description: Role name - must be unique in child account
+    Description: The name of the role to create in the development account. This name must be unique in the development account.
     Default: ChildAccountRole
     Type: String
 Resources:
