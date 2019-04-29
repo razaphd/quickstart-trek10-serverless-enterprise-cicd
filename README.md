@@ -11,7 +11,7 @@ The Quick Start includes a minimal sample serverless application that uses the A
 
 The Quick Start was built by Trek10 in collaboration with AWS.
 
-![Quick Start architecture for serverless CI/CD on AWS](https://d1.awsstatic.com/partner-network/QuickStart/datasheets/trek10-serverless-cicd-architecture-diagram.png)
+![Quick Start architecture for serverless CI/CD on AWS](https://d0.awsstatic.com/partner-network/QuickStart/datasheets/trek10-serverless-cicd-architecture-diagram.png)
 
 For architectural details, best practices, step-by-step instructions, and customization options, see the 
 [deployment guide](https://fwd.aws/53avp).
