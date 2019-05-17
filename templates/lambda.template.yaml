@@ -397,7 +397,7 @@ Resources:
       Environment:
         Variables:
           LOGGING_LEVEL: INFO
-          TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/pipeline.yaml
+          TemplateURL: !Sub https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/pipeline.template.yaml
           StackName: !Ref AWS::StackName
           DynamicPipelineCleanupLambdaArn: !GetAtt DynamicPipelineCleanupLambda.Arn
       Code:

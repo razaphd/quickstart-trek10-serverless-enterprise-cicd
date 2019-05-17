@@ -28,7 +28,7 @@ aws s3 cp ./ s3://${S3_BUCKET}/${S3_PREFIX} --recursive
 # Deploy Quick Start CloudFormation stack
 echo "Deploying CloudFormation stack"
 aws cloudformation deploy \
-    --template-file ./templates/full-stack.yaml \
+    --template-file ./templates/full-stack.template.yaml \
     --stack-name ${STACK_NAME} \
     --capabilities CAPABILITY_NAMED_IAM \
     --parameter-overrides DevAwsAccountId=${DEV_ACCOUNT_ID} ProdAwsAccountId=${PROD_ACCOUNT_ID} QSS3BucketName=${S3_BUCKET} QSS3KeyPrefix="${S3_PREFIX}/"
