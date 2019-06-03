@@ -113,7 +113,7 @@ Resources:
               cf_client = get_client("cloudformation", e, c)
               rp = e['ResourceProperties']
               try:
-                get_client("cloudformation", e, c).update_stack(
+                response = cf_client.update_stack(
                     StackName=e["PhysicalResourceId"],
                     TemplateBody=rp['TemplateBody'],
                     Parameters=get_cfn_parameters(e),
