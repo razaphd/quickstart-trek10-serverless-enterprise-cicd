@@ -469,7 +469,7 @@ Resources:
                           logger.info('reference:{}'.format(json.dumps(reference)))
                           if reference['ref'].split('/')[1] == 'heads':
                               # it is branch
-                              branch = reference['ref'].split('/')[-1]
+                              branch = reference['ref'].split('/',2)[-1]
                               if branch == 'master':
                                   logger.info('skipping branch master, pipeline for this branch created by main stack')
                                   continue
