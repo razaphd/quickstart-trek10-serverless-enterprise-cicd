@@ -11,7 +11,7 @@ USER=$(aws cloudformation describe-stacks --stack-name ${STACK_NAME} --query "St
 CODECOMMIT_SSH_URL=$(aws cloudformation describe-stacks --stack-name ${STACK_NAME} --query "Stacks[*].Outputs[?OutputKey=='RepoCloneUrlSsh'].OutputValue" --output text)
 
 # Generate ssh key
-SSH_KEY_LOC=~/.ssh/cicd-serverless
+SSH_KEY_LOC=~/.ssh/Serverless-CICD
 rm -f $SSH_KEY_LOC
 rm -f $SSH_KEY_LOC.pub
 ssh-keygen -q -f $SSH_KEY_LOC -t rsa -N ''
